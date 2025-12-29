@@ -7,7 +7,7 @@ pipeline {
 
     
     tools {
-        maven 'Maven 3.6.1'
+        maven 'Maven3.9.11'
     }
 
     
@@ -39,7 +39,7 @@ pipeline {
   
     post {
         always {
-            
+            echo 'Cleaning up or finishing the build...'
         }
         success {
             echo 'Pipeline completed successfully!'
