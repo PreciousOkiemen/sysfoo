@@ -23,14 +23,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'mvn test'
+                sh 'mvn clean test jacoco:report'
             }
         }
 
         stage('Package') {
             steps {
                 echo 'Packaging...'
-                sh 'mvn package -DSkipTests'
+                sh 'mvn package -DskipTests sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=squ_2ce92048f278f136ffa1aca89512f1a6b6cd029a -Dsonar.projectKey=sysfoo'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
