@@ -15,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'mvn -f worker/pom.xml compile'
+                sh 'mvn compile'
             }
         }
 
@@ -23,14 +23,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'mvn -f worker/pom.xml test'
+                sh 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
                 echo 'Packaging...'
-                sh 'mvn -f worker/pom.xml package -DSkipTests'
+                sh 'mvn package -DSkipTests'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
