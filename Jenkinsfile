@@ -28,9 +28,12 @@ pipeline {
         }
 
         stage('Package') {
+            environment {
+                SONAR_TOKEN = credentials('SONARQUBE_TOKEN_3')
+            }
             steps {
                 echo 'Packaging...'
-                sh 'mvn package -DskipTests sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=squ_e1f51073124232934de7989fa70bc765afddea9f -Dsonar.projectKey=sysfoo'
+                sh 'mvn package -DskipTests sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${SONARQUBE_TOKEN_3} -Dsonar.projectKey=sysfoo'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
